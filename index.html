@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Team Cosmo - 아티스트를 위한 루틴 파트너</title>
+  <meta name="description" content="매주 올리는 음악 콘텐츠, 혼자 만들기 어렵다면" />
+  <meta property="og:title" content="Team Cosmo - 아티스트를 위한 루틴 파트너" />
+  <meta property="og:description" content="매주 올리는 음악 콘텐츠, 혼자 만들기 어렵다면" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Team Cosmo" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Team Cosmo - 아티스트를 위한 루틴 파트너" />
+  <meta name="twitter:description" content="매주 올리는 음악 콘텐츠, 혼자 만들기 어렵다면" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,500;0,700;0,900;1,800&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper:#efe4d8;
+      --paper2:#faefe3;
+      --ink:#080808;
+      --muted:#564c42;
+      --line:#171717;
+      --blue:#1182ea;
+      --yellow:#ffb600;
+      --orange:#ff6335;
+      --green:#04b348;
+      --violet:#b56bf2;
+      --red:#ef3338;
+      --black:#050505;
+      --radius:34px;
+      --side:154px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth; scroll-snap-type:y mandatory; background:var(--paper)}
+    body{margin:0; background:var(--paper); color:var(--ink); font-family:"Archivo","Noto Sans KR",system-ui,sans-serif; letter-spacing:-.045em; overflow-x:hidden}
+    a{color:inherit; text-decoration:none}
+    .side-nav{position:fixed; z-index:50; left:18px; top:18px; width:118px; display:grid; gap:9px}
+    .logo{font-size:34px; line-height:.78; font-weight:900; letter-spacing:-.09em; margin:0 0 14px 0}
+    .logo span{display:block; font-size:8px; letter-spacing:.02em; margin-top:6px; font-family:"Noto Sans KR",sans-serif}
+    .menu-card{height:68px; border-radius:12px; padding:12px 12px 10px; border:1.5px solid var(--ink); display:flex; flex-direction:column; justify-content:space-between; font-weight:900; font-size:11px; line-height:1; position:relative; box-shadow:0 1px 0 rgba(0,0,0,.15)}
+    .menu-card em{font-style:normal; font-size:11px; letter-spacing:0}
+    .menu-card strong{font-family:"Noto Sans KR",sans-serif; letter-spacing:-.045em; font-size:11px; line-height:1.1; font-weight:900}
+    .menu-card::after{content:"↗"; position:absolute; right:10px; top:9px; font-size:14px}
+    .m1{background:var(--blue)} .m2{background:var(--yellow)} .m3{background:var(--orange)} .m4{background:var(--green)} .m5{background:var(--violet)} .m6{background:var(--paper2)} .m7{background:var(--red); color:white}
+    .menu-card.active{outline:3px solid var(--ink); transform:translateX(4px)}
+    .side-cta{height:48px; border-radius:11px; display:grid; place-items:center; background:var(--violet); border:1.5px solid var(--ink); font-weight:900; font-size:11px; font-family:"Noto Sans KR",sans-serif}
+    .side-dm{height:48px; border-radius:11px; display:grid; place-items:center; background:var(--black); color:white; border:1.5px solid var(--ink); font-weight:900; font-size:11px; font-family:"Noto Sans KR",sans-serif}
+    main{margin-left:var(--side)}
+    .panel{min-height:100vh; scroll-snap-align:start; scroll-snap-stop:always; padding:24px 28px 24px 0; display:flex; align-items:stretch}
+    .panel-inner{width:100%; border-radius:var(--radius); border:1.5px solid var(--ink); overflow:hidden; position:relative; background:var(--paper2)}
+    .hero-card{background:linear-gradient(90deg, rgba(0,0,0,.18), rgba(0,0,0,.05)), radial-gradient(circle at 82% 34%, rgba(255,255,255,.18) 0 9%, transparent 9.2%), var(--orange); min-height:calc(100vh - 48px); display:grid; place-items:center; text-align:center; padding:48px; color:white}
+    .hero-card::before{content:""; position:absolute; inset:0; background:linear-gradient(rgba(255,255,255,.14) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px); background-size:38px 38px; opacity:.24; pointer-events:none}
+    h1{font-size:min(clamp(var(--heroTitleMin,34px),var(--heroTitleVW,5.4vw),var(--heroTitleMax,76px)),72px); line-height:1.1; letter-spacing:-.04em; margin:0 0 24px; max-width:820px; text-shadow:0 2px 0 rgba(0,0,0,.15)}
+    .hero-lead{font-family:"Noto Sans KR",sans-serif; font-size:min(clamp(var(--heroBodyMin,14px),var(--heroBodyVW,1.45vw),var(--heroBodyMax,19px)),17px); line-height:1.5; letter-spacing:-.045em; max-width:680px; margin:0 auto 28px; font-weight:800; color:rgba(255,255,255,.94)}
+    .btn-row{display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
+    .btn{display:inline-flex; min-height:52px; align-items:center; justify-content:center; border-radius:999px; border:1.5px solid var(--ink); padding:14px 22px; font-weight:900; font-family:"Noto Sans KR",sans-serif; letter-spacing:-.045em; cursor:pointer; transition:.16s ease}
+    .btn:hover{transform:translateY(-2px)} .btn-dark{background:var(--ink); color:white}.btn-light{background:white;color:var(--ink)}
+    .hero-lead small{font-size:.82em;line-height:1.48;font-weight:700;color:rgba(255,255,255,.86)}
+    .snap-hint{position:absolute; bottom:18px; left:50%; transform:translateX(-50%); color:white; font-weight:900; font-size:12px; opacity:.85}
+    .section-grid{display:grid; grid-template-columns:1fr 1fr; min-height:calc(100vh - 48px); gap:18px; padding:0; background:transparent; border:0}
+    .block{border-radius:var(--radius); border:1.5px solid var(--ink); padding:30px; overflow:hidden; position:relative; display:flex; flex-direction:column; justify-content:space-between; min-height:280px}
+    .block .label{display:inline-flex; width:max-content; border:1.5px solid currentColor; border-radius:999px; padding:7px 16px; font-size:12px; font-weight:900; margin-bottom:24px}
+    h2{font-size:clamp(var(--sectionTitleMin,38px),var(--sectionTitleVW,5.6vw),var(--sectionTitleMax,86px)); line-height:1.04; letter-spacing:-.055em; margin:0 0 20px; font-weight:900}
+    h3{font-size:clamp(var(--cardTitleMin,24px),var(--cardTitleVW,3.2vw),var(--cardTitleMax,44px)); line-height:1.06; letter-spacing:-.05em; margin:0 0 12px; font-weight:900}
+    p, li{font-family:"Noto Sans KR",sans-serif; line-height:1.45; letter-spacing:-.045em; font-weight:650; font-size:var(--bodyTextSize,16px)}
+    p{margin:0;color:rgba(0,0,0,.78)}
+    .yellow{background:var(--yellow)} .cream{background:var(--paper2)} .red{background:var(--red); color:white}.red p{color:rgba(255,255,255,.86)} .blue{background:var(--blue); color:white}.blue p{color:rgba(255,255,255,.88)} .black{background:var(--black); color:white}.black p{color:rgba(255,255,255,.76)} .violet{background:var(--violet)} .green{background:var(--green)}
+
+    .examples-panel{background:var(--black); min-height:calc(100vh - 48px); padding:30px; color:white; display:grid; grid-template-rows:auto 1fr; gap:22px}
+    .examples-head{display:grid; grid-template-columns:.9fr 1.1fr; gap:22px; align-items:end; border-bottom:1.5px solid rgba(255,255,255,.28); padding-bottom:20px}
+    .examples-head h2{margin-bottom:0}.examples-head p{color:rgba(255,255,255,.78); max-width:760px}
+    .samples-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; align-items:stretch}
+    .sample-card{background:var(--paper2); color:var(--ink); border:1.5px solid var(--ink); border-radius:26px; overflow:hidden; display:flex; flex-direction:column; min-width:0}
+    .video-frame{aspect-ratio:16/9; background:#111; border-bottom:1.5px solid var(--ink); overflow:hidden}.video-frame iframe{width:100%; height:100%; border:0; display:block}
+    .sample-body{padding:20px; display:flex; flex-direction:column; gap:12px; flex:1}.sample-type{font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.02em; color:var(--muted)}
+    .sample-body h3{font-size:clamp(23px,2.8vw,36px); margin:0}.sample-body p{font-size:15px}.sample-body .btn{align-self:flex-start; min-height:44px; padding:11px 16px; margin-top:auto; font-size:14px}
+    .service-list{display:grid; gap:12px; margin-top:24px}
+    .service-row{display:grid; grid-template-columns:44px 1fr; gap:14px; align-items:start; border-top:1.5px solid currentColor; padding-top:13px}
+    .service-row b{font-size:20px}.service-row span{font-family:"Noto Sans KR",sans-serif; line-height:1.35; font-weight:800}
+    .marquee{height:48px; border-radius:999px; border:1.5px solid var(--ink); background:var(--red); color:var(--yellow); display:flex; align-items:center; overflow:hidden; font-weight:900; margin:18px 0; white-space:nowrap}
+    .marquee div{animation:move 22s linear infinite}.marquee span{padding:0 34px}@keyframes move{to{transform:translateX(-50%)}}
+    .flow-panel{background:var(--paper2); color:var(--ink)}
+    .steps{display:grid; grid-template-columns:repeat(4,1fr); height:100%}
+    .step{border-right:1.5px solid var(--ink); padding:30px; display:flex; flex-direction:column; justify-content:flex-start; gap:clamp(72px,12vh,150px); color:var(--ink)}.step:last-child{border-right:0}
+    .step:nth-child(1){background:#fff0dc}.step:nth-child(2){background:#ffd2a3}.step:nth-child(3){background:#ff9a65}.step:nth-child(4){background:var(--orange)}
+    .step p{color:rgba(0,0,0,.78)}
+    .step-num{font-size:clamp(58px,8vw,120px); line-height:.8; font-weight:900; letter-spacing:-.1em; opacity:1;color:var(--ink)}
+    .pill{display:inline-flex;width:max-content;margin-top:10px;border:1.5px solid currentColor;border-radius:999px;padding:7px 13px;font-weight:900;background:rgba(255,255,255,.45)}
+    .price-grid{display:grid; grid-template-columns:.8fr 1.2fr; min-height:calc(100vh - 48px)}
+    .price-main{padding:34px; border-right:1.5px solid var(--ink); display:flex; flex-direction:column; justify-content:space-between}.amount{font-size:clamp(60px,8vw,126px); font-weight:900; line-height:.85; letter-spacing:-.09em}
+    .plans{display:grid; grid-template-columns:1fr 1fr}.plan{padding:30px; border-right:1.5px solid var(--ink); display:flex; flex-direction:column; justify-content:space-between}.plan:last-child{border-right:0}.plan strong{font-size:46px;letter-spacing:-.07em} ul{padding-left:20px;margin:20px 0 0}
+    .faq-grid{display:grid; grid-template-columns:.72fr 1.28fr; gap:0; min-height:calc(100vh - 48px)}
+    .faq-head{padding:32px;border-right:1.5px solid var(--ink);display:flex;flex-direction:column;justify-content:space-between}.faq-items{display:block}
+    details{padding:20px 24px;border-bottom:1.5px solid var(--ink);background:var(--paper2)}details:last-child{border-bottom:0}summary{cursor:pointer;font-size:var(--faqQuestionSize,21px);font-weight:900;letter-spacing:-.055em;line-height:1.05}details p{margin-top:14px}
+    .footer-panel{background:var(--red); min-height:calc(100vh - 48px); padding:44px; display:flex; flex-direction:column; justify-content:space-between}.footer-panel h2{font-size:clamp(52px,8vw,126px);line-height:1.06;letter-spacing:-.055em;max-width:980px}.footer-card{align-self:flex-end;background:var(--yellow);border:1.5px solid var(--ink);border-radius:30px;padding:28px;width:min(460px,100%)}
+    .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(80px);opacity:0;background:white;color:var(--ink);padding:13px 18px;border-radius:999px;font-weight:900;box-shadow:0 18px 50px rgba(0,0,0,.3);transition:.25s ease;z-index:99}.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+    @media(max-width:860px){html{scroll-snap-type:y proximity}.side-nav{position:sticky;top:0;left:0;width:auto;padding:10px;background:var(--paper);grid-template-columns:1fr repeat(7,38px);align-items:center}.logo{font-size:24px;margin:0}.logo span,.menu-card strong,.side-cta,.side-dm{display:none}.menu-card{height:40px;padding:8px;place-items:center;text-align:center}.menu-card::after{display:none}.menu-card em{font-size:12px;line-height:1}.side-cta,.side-dm{height:44px}main{margin-left:0}.panel{padding:10px;min-height:auto;scroll-margin-top:0}.hero-card,.section-grid,.price-grid,.faq-grid,.footer-panel,.examples-panel{min-height:calc(100vh - 20px)}.hero-card{padding:34px 20px}.hero-card h1{font-size:clamp(30px,9.8vw,52px);line-height:1.12;letter-spacing:-.035em;max-width:620px}.hero-lead{font-size:clamp(12.5px,3.7vw,15.5px);line-height:1.48;max-width:560px}.section-grid,.price-grid,.plans,.faq-grid,.examples-head,.samples-grid{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.step{min-height:230px;border-right:0;border-bottom:1.5px solid var(--ink);gap:32px}.price-main,.faq-head{border-right:0;border-bottom:1.5px solid var(--ink)}.block{min-height:320px}}
+  </style>
+</head>
+<body>
+  <nav class="side-nav" aria-label="section navigation">
+    <a class="logo" href="#top">cosmo.<span>WEEKLY MUSIC CONTENT</span></a>
+    <a class="menu-card m1 active" href="#top" data-nav="top"><em>01</em><strong>Home</strong></a>
+    <a class="menu-card m2" href="#service" data-nav="service"><em>02</em><strong>Service</strong></a>
+    <a class="menu-card m3" href="#examples" data-nav="examples"><em>03</em><strong>Examples</strong></a>
+    <a class="menu-card m4" href="#flow" data-nav="flow"><em>04</em><strong>Flow</strong></a>
+    <a class="menu-card m5" href="#price" data-nav="price"><em>05</em><strong>Pilot</strong></a>
+    <a class="menu-card m6" href="#faq" data-nav="faq"><em>06</em><strong>FAQ</strong></a>
+    <a class="menu-card m7" href="#contact" data-nav="contact"><em>07</em><strong>Start</strong></a>
+    <a class="side-cta" href="https://docs.google.com/forms/d/e/1FAIpQLSePG3g62BgyqFlVIRx9f2U1VmksUJVPDrjv7qwna3RLUNQ5Gg/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" data-link="apply" data-cms="side_cta">파일럿 신청</a>
+    <a class="side-dm" href="https://www.instagram.com/teamcosmo_official/" target="_blank" rel="noopener noreferrer" data-link="instagram" data-cms="side_dm">Instagram DM</a>
+  </nav>
+
+  <main>
+    <section class="panel" id="top" data-section="top">
+      <div class="panel-inner hero-card">
+        <div>
+          <h1 data-cms="hero_title">매주 올릴<br/>음악 콘텐츠,<br/>혼자 만들기 어렵다면.</h1>
+          <p class="hero-lead" data-cms="hero_body">라이브·커버 영상을 보내주세요. 팀코스모가 음정 보정, 보컬 믹스, 자막, 업로드용 마스터 체인까지 정리해 릴스·쇼츠·틱톡에 올릴 수 있는 90초 이내 숏폼 콘텐츠로 만들어드립니다.<br><br><small>* 베타 신청은 홈페이지에서 받고, 결제는 네이버 월결제 링크로 진행됩니다.<br>* 모든 파일 제출과 수정 요청은 hello@teamcosmo.co.kr 이메일 기준으로 운영됩니다.</small></p>
+          <div class="btn-row"><a class="btn btn-dark" href="https://docs.google.com/forms/d/e/1FAIpQLSePG3g62BgyqFlVIRx9f2U1VmksUJVPDrjv7qwna3RLUNQ5Gg/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" data-link="apply" data-cms="hero_apply_button">베타 멤버 신청하기 ↗</a><a class="btn btn-light" href="#examples" data-cms="hero_examples_button">예시 영상 보기</a><a class="btn btn-light" href="https://www.instagram.com/teamcosmo_official/" target="_blank" rel="noopener noreferrer" data-link="instagram" data-cms="hero_dm_button">인스타 DM 문의</a></div>
+        </div>
+        <div class="snap-hint">SCROLL TO NEXT UNIT ↓</div>
+      </div>
+    </section>
+
+    <section class="panel" id="service" data-section="service">
+      <div class="section-grid">
+        <article class="block yellow"><div><span class="label">Service</span><h2 data-cms="service_title">매주 보이는<br/>뮤지션이 되려면.</h2><p data-cms="service_body_v2">하루에도 수많은 노래와 영상이 올라옵니다. 좋은 음악도 자주 보이지 않으면 금방 잊힙니다. 팀코스모는 발매와 다음 앨범 사이의 공백기에도 아티스트가 계속 비칠 수 있도록, 라이브·커버 영상을 과한 제작비 없이 프로가 손본 듯한 90초 이내 숏폼 콘텐츠로 정리합니다.</p></div><div class="service-list"><div class="service-row"><b>01</b><span data-cms="service_item_1">보내주신 영상을 릴스·쇼츠·틱톡에 올릴 수 있는 90초 이내 숏폼 콘텐츠로 정리</span></div><div class="service-row"><b>02</b><span data-cms="service_item_2">정식 음원 발매용 믹싱이 아니라 SNS에서 듣기 편한 업로드용 보컬 사운드로 정리</span></div><div class="service-row"><b>03</b><span data-cms="service_item_3">가사나 핵심 문장을 넣고 제출된 화면 비율에 맞춘 MP4 파일로 전달</span></div></div></article>
+        <article class="block cream"><div><span class="label">What we make</span><h2 data-cms="make_title">보내주시면,<br/>올릴 수 있게.</h2></div><div class="marquee"><div><span>Vocal Tune</span><span>Vocal Mix</span><span>Captions</span><span>Upload Master</span><span>Shorts File</span><span>Vocal Tune</span><span>Vocal Mix</span><span>Captions</span></div></div><p data-cms="make_body">팀코스모가 파는 것은 단순한 믹싱이 아니라, 보컬·싱어송라이터가 매주 음악 콘텐츠를 올릴 수 있게 해주는 반복 가능한 콘텐츠 루틴입니다.</p></article>
+      </div>
+    </section>
+
+    <section class="panel" id="examples" data-section="examples">
+      <div class="panel-inner examples-panel">
+        <div class="examples-head">
+          <div><span class="label">Examples</span><h2 data-cms="examples_title">작업 참여<br/>예시 영상.</h2></div>
+          <p data-cms="examples_body">보컬 튠과 믹스가 적용된 실제 작업 참여 예시입니다. 결과물은 원본 파일 상태와 작업 범위에 따라 달라질 수 있습니다.</p>
+        </div>
+        <div class="samples-grid">
+          <article class="sample-card">
+            <div class="video-frame"><iframe data-video="sample_1" src="https://www.youtube.com/embed/AtRB8h61GmU" title="B.F.M SLOTH Be my muse forever Live Clip" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+            <div class="sample-body"><span class="sample-type" data-cms="sample_1_type">Live Clip</span><h3 data-cms="sample_1_title">B.F.M — Be my muse forever</h3><p data-cms="sample_1_desc">보컬 튠 / 믹스 참여 예시</p><a class="btn btn-dark" data-link="sample_1" href="https://www.youtube.com/watch?v=AtRB8h61GmU" target="_blank" rel="noopener">영상 보기 ↗</a></div>
+          </article>
+          <article class="sample-card">
+            <div class="video-frame"><iframe data-video="sample_2" src="https://www.youtube.com/embed/dTJhuHysqmw" title="NANA UP cover" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+            <div class="sample-body"><span class="sample-type" data-cms="sample_2_type">Cover Clip</span><h3 data-cms="sample_2_title">NANA — UP cover</h3><p data-cms="sample_2_desc">커버 영상 보컬 튠 / 믹스 예시</p><a class="btn btn-dark" data-link="sample_2" href="https://www.youtube.com/watch?v=dTJhuHysqmw" target="_blank" rel="noopener">영상 보기 ↗</a></div>
+          </article>
+          <article class="sample-card">
+            <div class="video-frame"><iframe data-video="sample_3" src="https://www.youtube.com/embed/Pv-6kNZBG5w" title="YOON SANHA Last Christmas Cover" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+            <div class="sample-body"><span class="sample-type" data-cms="sample_3_type">Cover Clip</span><h3 data-cms="sample_3_title">YOON SANHA — Last Christmas cover</h3><p data-cms="sample_3_desc">보컬 커버 사운드 정리 예시</p><a class="btn btn-dark" data-link="sample_3" href="https://www.youtube.com/watch?v=Pv-6kNZBG5w" target="_blank" rel="noopener">영상 보기 ↗</a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="panel" id="flow" data-section="flow">
+      <div class="panel-inner flow-panel">
+        <div class="steps">
+          <article class="step"><div class="step-num">01</div><div><h3 data-cms="flow_1_title">베타 신청</h3><p data-cms="flow_1_body">활동명, 인스타그램 ID, 원하는 콘텐츠 유형, 현재 파일 준비 상태를 남깁니다.</p><span class="pill">Website Form</span></div></article>
+          <article class="step"><div class="step-num">02</div><div><h3 data-cms="flow_2_title">작업 범위 확인</h3><p data-cms="flow_2_body">90초 이내 숏폼 기준으로 작업 가능 여부와 제출 파일을 확인합니다.</p><span class="pill">Email / DM</span></div></article>
+          <article class="step"><div class="step-num">03</div><div><h3 data-cms="flow_3_title">네이버 월결제</h3><p data-cms="flow_3_body">네이버 월결제 상품으로 매월 자동 결제를 진행합니다.</p><span class="pill">Naver Pay</span></div></article>
+          <article class="step"><div class="step-num">04</div><div><h3 data-cms="flow_4_title">콘텐츠 루틴 시작</h3><p data-cms="flow_4_body">월 4회, 매주 하나씩 업로드 가능한 음악 콘텐츠를 완성합니다.</p><span class="pill">Routine</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="price" data-section="price">
+      <div class="panel-inner price-grid">
+        <div class="price-main blue"><div><span class="label">PILOT RECRUITING</span><h2 data-cms="pilot_title">1차 베타<br/>멤버 10명 모집.</h2></div><div><div class="amount" data-cms="pilot_counter">0 / 10</div><p data-cms="pilot_body">베타 기간에는 월 4회 플랜만 운영합니다. 작업 품질과 응대 속도를 유지하기 위해 1차 베타는 10명으로 제한합니다.</p></div></div>
+        <div class="plans">
+          <article class="plan violet"><div><h3 data-cms="plan_title">월 4회<br/>플랜</h3><strong data-cms="plan_price">월 12만 원</strong></div><ul><li data-cms="plan_item_1">월 4회 작업</li><li data-cms="plan_item_2">주 1회 음악 콘텐츠 루틴</li><li data-cms="plan_item_3">90초 이내 라이브·커버 영상 후반작업</li><li data-cms="plan_item_4">음정 보정</li><li data-cms="plan_item_5">보컬 믹스</li><li data-cms="plan_item_6">업로드용 마스터 체인</li><li data-cms="plan_item_7">기본 자막 작업</li><li data-cms="plan_item_8">MP4 파일 납품</li></ul></article>
+          <article class="plan orange"><div><h3 data-cms="policy_title">베타 운영<br/>기준</h3><strong data-cms="policy_subtitle">고정 루틴</strong></div><ul><li data-cms="policy_item_1">제출 마감: 매주 일요일 18:00</li><li data-cms="policy_item_2">납품: 매주 금요일 18:00</li><li data-cms="policy_item_3">수정 요청: 납품 후 24시간 이내</li><li data-cms="policy_item_4">기본 수정 1회 포함</li><li data-cms="policy_item_5">5번째 일요일은 정규 회차 제외</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="faq" data-section="faq">
+      <div class="panel-inner faq-grid">
+        <div class="faq-head green"><div><span class="label">FAQ</span><h2 data-cms="faq_title">범위는<br/>명확하게.</h2></div><p data-cms="faq_body">팀코스모는 정식 음원 제작 스튜디오가 아니라, 릴스·쇼츠·틱톡에 꾸준히 올릴 음악 콘텐츠를 완성하기 위한 후반작업 루틴 서비스입니다.</p></div>
+        <div class="faq-items">
+          <details open><summary data-cms="faq_1_q">어떤 파일을 보내야 하나요?</summary><p data-cms="faq_1_a">보컬 파일, Inst 파일, 영상 파일, 가사/자막 텍스트를 보내주세요. 파일은 Google Drive, Dropbox, WeTransfer 링크 제출을 권장합니다. 직접 첨부도 가능하지만 용량 제한, 파일 누락, 버전 혼선이 생길 수 있습니다.</p></details>
+          <details><summary data-cms="faq_2_q">정식 음원 믹싱/마스터링도 해주나요?</summary><p data-cms="faq_2_a">아니요. 팀코스모는 정식 음원 발매용 믹싱/마스터링 서비스가 아닙니다. 릴스·쇼츠·틱톡에 올릴 90초 이내 숏폼 음악 콘텐츠를 위한 업로드용 후반작업 서비스입니다.</p></details>
+          <details><summary data-cms="faq_3_q">누구에게 잘 맞나요?</summary><p data-cms="faq_3_a">보컬리스트, 싱어송라이터, 커버 아티스트처럼 라이브·커버 영상을 꾸준히 올리고 싶지만 음정 보정, 보컬 믹스, 자막, 업로드 파일 정리가 부담스러운 분들에게 잘 맞습니다.</p></details>
+          <details><summary data-cms="faq_4_q">정기결제는 어디서 하나요?</summary><p data-cms="faq_4_a">정기결제는 네이버 월결제 상품으로 진행됩니다. 베타 신청 후 안내받은 결제 링크에서 월 4회 플랜을 결제할 수 있습니다.</p></details>
+          <details><summary data-cms="faq_5_q">제출 마감은 언제인가요?</summary><p data-cms="faq_5_a">매주 일요일 18:00까지 hello@teamcosmo.co.kr로 파일을 제출해주세요. 제출 마감일 이후 도착한 파일은 다음 회차 작업으로 넘어가며, 미제출 회차는 이월되지 않습니다.</p></details>
+          <details><summary data-cms="faq_6_q">납품은 언제 되나요?</summary><p data-cms="faq_6_a">매주 금요일 18:00까지 MP4 파일로 납품합니다. 파일은 제출된 화면 비율에 맞춰 릴스·쇼츠·틱톡 업로드용으로 제작됩니다.</p></details>
+          <details><summary data-cms="faq_7_q">수정 요청은 가능한가요?</summary><p data-cms="faq_7_a">납품 후 24시간 이내 수정 요청이 가능하며, 기본 수정 1회가 포함됩니다. 수정된 파일은 다음 주 화요일 18:00까지 납품합니다.</p></details>
+          <details><summary data-cms="faq_8_q">어떤 수정이 포함되나요?</summary><p data-cms="faq_8_a">포함: 자막 오타, 자막 위치 소폭 조정, 보컬/전체 음량 소폭 조정, 간단한 싱크 조정, 보컬 음정 조정. 제외: 곡 변경, 영상 교체, 보컬 파일 재제출, Inst 교체, 새로운 방향 재작업, 자막 디자인 전면 변경, 새 컷 편집 요청.</p></details>
+          <details><summary data-cms="faq_9_q">일요일이 5번 있는 달은 어떻게 되나요?</summary><p data-cms="faq_9_a">한 달에 일요일이 5번 있는 경우, 5번째 일요일은 정규 제출 회차가 아닙니다.</p></details>
+          <details><summary data-cms="faq_10_q">환불은 가능한가요?</summary><p data-cms="faq_10_a">결제 후 첫 작업 시작 전에는 전액 환불 가능합니다. 첫 작업이 시작된 이후에는 해당 월 환불이 어렵습니다. 단, 팀코스모 측 사유로 작업 진행이 불가능한 경우 남은 회차 기준으로 환불합니다.</p></details>
+          <details><summary data-cms="faq_11_q">커버곡 저작권은 어떻게 되나요?</summary><p data-cms="faq_11_a">커버곡/원곡 사용에 따른 저작권 책임은 업로드하는 뮤지션 본인에게 있습니다. 팀코스모는 제출된 음원과 영상의 후반작업을 지원하며, 저작권 등록, 이용허락, 수익화 권리 대행은 제공하지 않습니다.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="contact" data-section="contact">
+      <div class="panel-inner footer-panel">
+        <div><span class="label">Start</span><h2 data-cms="final_title">이번 달부터,<br/>매주 하나씩 보이게.</h2><p data-cms="final_body">완벽한 영상 하나보다 중요한 건 계속 쌓이는 활동의 기록입니다. 라이브·커버 영상을 보내고, 매주 올릴 수 있는 음악 콘텐츠 루틴을 시작해보세요.<br><br>1차 베타는 10명 한정으로 운영됩니다. 결제는 네이버 월결제로 진행되며, 모든 파일 제출과 수정 요청은 hello@teamcosmo.co.kr 이메일 기준으로 처리됩니다.</p></div>
+        <aside class="footer-card"><h3>Team Cosmo Pilot</h3><div class="btn-row" style="justify-content:flex-start"><a class="btn btn-dark" href="https://docs.google.com/forms/d/e/1FAIpQLSePG3g62BgyqFlVIRx9f2U1VmksUJVPDrjv7qwna3RLUNQ5Gg/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" data-link="apply" data-cms="final_apply_button">베타 신청하기</a><a class="btn btn-light" href="https://www.instagram.com/teamcosmo_official/" target="_blank" rel="noopener noreferrer" data-link="instagram" data-cms="final_dm_button">Instagram DM</a><a class="btn btn-dark" href="https://naver.com" target="_blank" rel="noopener noreferrer" data-link="naver_pay" data-cms="final_naver_button">네이버 월결제 링크</a></div></aside>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast">임시 링크입니다. 실제 베타 신청/인스타/네이버 월결제 링크로 교체하면 됩니다.</div>
+  <script>
+
+    // Google Sheet CMS
+    // 1) Google Sheet columns: key | value
+    // 2) Publish/share the sheet, then open this page with ?sheetId=YOUR_SHEET_ID&sheetName=Content
+    // 3) Optional: set window.TEAM_COSMO_SHEET_ID here after the real sheet is ready.
+    window.TEAM_COSMO_SHEET_ID = window.TEAM_COSMO_SHEET_ID || '1DROMc6tyApX42f_mEgIDoH2Zgtt5dDhsjEXYehaC7qY';
+    window.TEAM_COSMO_SHEET_GID = window.TEAM_COSMO_SHEET_GID || '1875104530';
+    window.TEAM_COSMO_SHEET_NAME = window.TEAM_COSMO_SHEET_NAME || 'Content';
+
+    const cmsParams = new URLSearchParams(location.search);
+    const CMS_STYLE_KEYS = new Set([
+      'heroTitleMin','heroTitleVW','heroTitleMax','heroBodyMin','heroBodyVW','heroBodyMax',
+      'sectionTitleMin','sectionTitleVW','sectionTitleMax','cardTitleMin','cardTitleVW','cardTitleMax',
+      'bodyTextSize','faqQuestionSize'
+    ]);
+    const CMS_LINK_KEYS = new Set(['apply','instagram','naver_pay','sample_1','sample_2','sample_3']);
+
+    function cmsSetHTML(key, value) {
+      document.querySelectorAll(`[data-cms="${CSS.escape(key)}"]`).forEach((node) => {
+        node.innerHTML = String(value).replace(/\n/g, '<br>');
+      });
+    }
+    function cmsSetLink(key, value) {
+      if (!value || String(value).includes('REPLACE_ME')) return;
+      document.querySelectorAll(`[data-link="${CSS.escape(key)}"]`).forEach((node) => {
+        node.href = value;
+        openExternalLinksInNewTabs(node);
+        node.removeAttribute('data-placeholder');
+      });
+    }
+    function openExternalLinksInNewTabs(root = document) {
+      const links = root.matches && root.matches('a[href^="http://"], a[href^="https://"]')
+        ? [root]
+        : [...root.querySelectorAll('a[href^="http://"], a[href^="https://"]')];
+      links.forEach((link) => {
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+      });
+    }
+    function cmsYoutubeEmbed(value) {
+      const text = String(value).trim();
+      const idMatch = text.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([A-Za-z0-9_-]{11})/) || text.match(/^([A-Za-z0-9_-]{11})$/);
+      return idMatch ? `https://www.youtube.com/embed/${idMatch[1]}` : text;
+    }
+    function cmsSetVideo(key, value) {
+      document.querySelectorAll(`[data-video="${CSS.escape(key)}"]`).forEach((node) => {
+        node.src = cmsYoutubeEmbed(value);
+      });
+    }
+    function cmsApply(rows) {
+      const content = {};
+      rows.forEach((row) => {
+        const key = String(row.key || '').trim();
+        const value = row.value == null ? '' : String(row.value).trim();
+        if (key && value) content[key] = value;
+      });
+      Object.entries(content).forEach(([key, value]) => {
+        if (key.startsWith('style_')) {
+          const styleKey = key.slice(6);
+          if (CMS_STYLE_KEYS.has(styleKey)) document.documentElement.style.setProperty(`--${styleKey}`, value);
+        } else if (key.startsWith('link_')) {
+          const linkKey = key.slice(5);
+          if (CMS_LINK_KEYS.has(linkKey)) cmsSetLink(linkKey, value);
+        } else if (key.startsWith('video_')) {
+          cmsSetVideo(key.slice(6), value);
+        } else {
+          cmsSetHTML(key, value);
+        }
+      });
+      openExternalLinksInNewTabs();
+      document.documentElement.dataset.cms = 'loaded';
+    }
+    window.cmsApply = cmsApply;
+    window.cmsLoadFromGviz = cmsLoadFromGviz;
+
+    function cmsLoadFromGviz(sheetId, sheetName, sheetGid) {
+      return new Promise((resolve, reject) => {
+        const callback = `teamCosmoSheet_${Date.now()}`;
+        window[callback] = (res) => {
+          try {
+            let cols = (res.table.cols || []).map((c) => (c.label || c.id || '').trim().toLowerCase());
+            let rawRows = res.table.rows || [];
+            const firstRowValues = (rawRows[0]?.c || []).map((cell) => String(cell && cell.v != null ? cell.v : '').trim().toLowerCase());
+            if (!cols.includes('key') && firstRowValues.includes('key') && firstRowValues.includes('value')) {
+              cols = firstRowValues;
+              rawRows = rawRows.slice(1);
+            }
+            const rows = rawRows.map((r) => {
+              const out = {};
+              (r.c || []).forEach((cell, i) => out[cols[i] || `col_${i}`] = cell && cell.v != null ? cell.v : '');
+              if (!out.key && out.a) out.key = out.a;
+              if (!out.value && out.b) out.value = out.b;
+              return out;
+            });
+            cmsApply(rows);
+            resolve(rows);
+          } catch (err) { reject(err); }
+          finally { delete window[callback]; script.remove(); }
+        };
+        const script = document.createElement('script');
+        script.onerror = reject;
+        const target = sheetGid ? `gid=${encodeURIComponent(sheetGid)}` : `sheet=${encodeURIComponent(sheetName || 'Content')}`;
+        script.src = `https://docs.google.com/spreadsheets/d/${encodeURIComponent(sheetId)}/gviz/tq?tqx=responseHandler:${callback}&${target}`;
+        document.head.appendChild(script);
+      });
+    }
+    const cmsSheetId = cmsParams.get('sheetId') || window.TEAM_COSMO_SHEET_ID || localStorage.getItem('teamcosmo_sheet_id');
+    const cmsSheetGid = cmsParams.get('gid') || cmsParams.get('sheetGid') || window.TEAM_COSMO_SHEET_GID || localStorage.getItem('teamcosmo_sheet_gid');
+    const cmsSheetName = cmsParams.get('sheetName') || window.TEAM_COSMO_SHEET_NAME || localStorage.getItem('teamcosmo_sheet_name');
+    if (cmsParams.get('sheetId')) localStorage.setItem('teamcosmo_sheet_id', cmsParams.get('sheetId'));
+    if (cmsParams.get('gid') || cmsParams.get('sheetGid')) localStorage.setItem('teamcosmo_sheet_gid', cmsParams.get('gid') || cmsParams.get('sheetGid'));
+    if (cmsParams.get('sheetName')) localStorage.setItem('teamcosmo_sheet_name', cmsParams.get('sheetName'));
+    openExternalLinksInNewTabs();
+    if (cmsSheetId) cmsLoadFromGviz(cmsSheetId, cmsSheetName, cmsSheetGid).catch((err) => console.warn('Team Cosmo CMS load failed:', err));
+
+    const toast = document.getElementById('toast');
+    document.querySelectorAll('[data-placeholder], [data-link]').forEach((el) => {
+      el.addEventListener('click', (e) => {
+        const isPlaceholder = el.hasAttribute('data-placeholder') || el.href.includes('REPLACE_ME') || el.href === 'https://naver.com/';
+        if (!isPlaceholder) return;
+        e.preventDefault();
+        toast.classList.add('show');
+        clearTimeout(window.__toastTimer);
+        window.__toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+      });
+    });
+    const navLinks = [...document.querySelectorAll('[data-nav]')];
+    const sections = [...document.querySelectorAll('[data-section]')];
+    const scrollToSection = (target) => {
+      if (!target) return;
+      const navOffset = window.matchMedia('(max-width: 860px)').matches ? document.querySelector('.side-nav')?.offsetHeight || 0 : 0;
+      const top = window.scrollY + target.getBoundingClientRect().top - navOffset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    };
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener('click', (event) => {
+        const href = link.getAttribute('href');
+        if (!href || href === '#') return;
+        const target = document.querySelector(href);
+        if (!target) return;
+        event.preventDefault();
+        history.replaceState(null, '', href);
+        scrollToSection(target);
+      });
+    });
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const id = entry.target.dataset.section;
+        navLinks.forEach((a) => a.classList.toggle('active', a.dataset.nav === id));
+      });
+    }, { threshold: .55 });
+    sections.forEach((s) => io.observe(s));
+
+    let snapping = false;
+    const nearestSectionIndex = () => {
+      const middle = window.innerHeight / 2;
+      let best = 0;
+      let bestDistance = Infinity;
+      sections.forEach((section, index) => {
+        const rect = section.getBoundingClientRect();
+        const distance = Math.abs(rect.top + rect.height / 2 - middle);
+        if (distance < bestDistance) { bestDistance = distance; best = index; }
+      });
+      return best;
+    };
+    window.addEventListener('wheel', (event) => {
+      if (window.matchMedia('(max-width: 860px)').matches) return;
+      if (Math.abs(event.deltaY) < 18) return;
+      event.preventDefault();
+      if (snapping) return;
+      snapping = true;
+      const current = nearestSectionIndex();
+      const next = Math.min(sections.length - 1, Math.max(0, current + (event.deltaY > 0 ? 1 : -1)));
+      sections[next].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(() => { snapping = false; }, 820);
+    }, { passive: false });
+  </script>
+</body>
+</html>
